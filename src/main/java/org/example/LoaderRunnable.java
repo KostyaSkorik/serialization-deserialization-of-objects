@@ -14,12 +14,13 @@ public class LoaderRunnable implements Runnable {
         if (path!=null && new File(this.path).exists()){
             FileInputStream fis;
             try {
+                Thread.sleep(2000);
                 fis=new FileInputStream(this.path);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 Person person = (Person) ois.readObject();
                 ois.close();
                 System.out.println(person.toString());
-            }catch (IOException|ClassNotFoundException e){
+            }catch (IOException|ClassNotFoundException|InterruptedException e){
                 System.out.println("Error loading from path: "+this.path);
                 System.out.println(e.getMessage());
             }
