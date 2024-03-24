@@ -1,8 +1,8 @@
 package org.example;
 
-import java.io.Serializable;
+import java.io.*;
 
-public class Person implements Serializable {
+public class Person implements Externalizable {
 
     private String fisrtName;
     private String lastName;
@@ -56,5 +56,25 @@ public class Person implements Serializable {
                 ", surname: "+getLastName() +
                 ", age: "+getAge() +
                 ", budget: "+getBudget()+"}";
+    }
+
+    public Person() {}
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(this.getFisrtName());
+        out.writeObject(this.getLastName());
+        out.writeObject(this.getAge());
+        out.writeObject(this.getBudget());
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.fisrtName=(String) in.readObject();
+        this.lastName=(String) in.readObject();
+        this.age=(Integer) in.readObject();
+        this.budget=(Integer) in.readObject();
+
     }
 }
